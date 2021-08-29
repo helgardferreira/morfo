@@ -1,5 +1,4 @@
-import { FunctionComponent } from "react";
-import { MouseEventHandler } from "hoist-non-react-statics/node_modules/@types/react";
+import { FunctionComponent, MouseEventHandler } from "react";
 
 const IconButton: FunctionComponent<{
   onClick?: MouseEventHandler<HTMLButtonElement>;

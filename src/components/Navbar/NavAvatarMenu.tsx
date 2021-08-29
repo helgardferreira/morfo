@@ -1,11 +1,12 @@
 import { Fragment, FunctionComponent } from "react";
 import { Menu, Transition } from "@headlessui/react";
 import { classNames } from "../../utils/classNames";
+import { ILink } from "../../types";
 
 interface IProps {
   desc?: string;
   src?: string;
-  links?: { href: string; label: string }[];
+  links?: ILink[];
 }
 
 const NavAvatarMenu: FunctionComponent<IProps> = (props) => {
@@ -34,7 +35,7 @@ const NavAvatarMenu: FunctionComponent<IProps> = (props) => {
       >
         <Menu.Items className="origin-top-right absolute right-0 mt-2 w-48 rounded-md shadow-lg py-1 bg-white ring-1 ring-black ring-opacity-5 focus:outline-none">
           {links.map((link) => (
-            <Menu.Item key={link.label}>
+            <Menu.Item key={link.name}>
               {({ active }) => (
                 <a
                   href={link.href}
@@ -43,7 +44,7 @@ const NavAvatarMenu: FunctionComponent<IProps> = (props) => {
                     "block px-4 py-2 text-sm text-gray-700"
                   )}
                 >
-                  {link.label}
+                  {link.name}
                 </a>
               )}
             </Menu.Item>

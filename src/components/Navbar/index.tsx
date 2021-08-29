@@ -10,11 +10,7 @@ import NavAvatar from "./NavAvatar";
 import SearchField from "../formFields/SearchField";
 import IconButton from "../IconButton";
 import { useForm } from "react-hook-form";
-
-interface ILink {
-  label: string;
-  href: string;
-}
+import { ILink } from "../../types";
 
 interface IUser {
   email: string;
@@ -23,7 +19,7 @@ interface IUser {
 
 interface IProps {
   menuLinks: ILink[];
-  avatarLinks: ILink[];
+  userLinks: ILink[];
   user: IUser;
 }
 
@@ -40,7 +36,7 @@ const largeLogo =
   "https://tailwindui.com/img/logos/workflow-logo-indigo-500-mark-white-text.svg";
 
 const Navbar: FunctionComponent<IProps> = (props) => {
-  const { menuLinks, avatarLinks, user } = props;
+  const { menuLinks, userLinks, user } = props;
 
   const [currentLink, setCurrentLink] = useState("Dashboard");
 
@@ -69,12 +65,12 @@ const Navbar: FunctionComponent<IProps> = (props) => {
                   <div className="flex space-x-4">
                     {menuLinks.map((link) => (
                       <NavLink
-                        key={link.label}
+                        key={link.name}
                         href={link.href}
-                        onClick={() => setCurrentLink(link.label)}
-                        active={currentLink === link.label}
+                        onClick={() => setCurrentLink(link.name)}
+                        active={currentLink === link.name}
                       >
-                        {link.label}
+                        {link.name}
                       </NavLink>
                     ))}
                   </div>
@@ -101,7 +97,7 @@ const Navbar: FunctionComponent<IProps> = (props) => {
                     <NavAvatarMenu
                       src={avatarSrc}
                       desc="Open user menu"
-                      links={avatarLinks}
+                      links={userLinks}
                     />
                   </div>
                 </div>
@@ -120,13 +116,13 @@ const Navbar: FunctionComponent<IProps> = (props) => {
             <div className="px-2 pt-2 pb-3 space-y-1">
               {menuLinks.map((link) => (
                 <NavLink
-                  key={link.label}
+                  key={link.name}
                   href={link.href}
-                  onClick={() => setCurrentLink(link.label)}
-                  active={currentLink === link.label}
+                  onClick={() => setCurrentLink(link.name)}
+                  active={currentLink === link.name}
                   full
                 >
-                  {link.label}
+                  {link.name}
                 </NavLink>
               ))}
             </div>
@@ -148,9 +144,9 @@ const Navbar: FunctionComponent<IProps> = (props) => {
                 </div>
               </div>
               <div className="mt-3 px-2 space-y-1">
-                {avatarLinks.map((link) => (
-                  <NavLink key={link.label} href={link.href} full>
-                    {link.label}
+                {userLinks.map((link) => (
+                  <NavLink key={link.name} href={link.href} full>
+                    {link.name}
                   </NavLink>
                 ))}
               </div>
