@@ -7,8 +7,9 @@ import NavLogo from "./NavLogo";
 import NavMobileButton from "./NavMobileButton";
 import NavAvatarMenu from "./NavAvatarMenu";
 import NavAvatar from "./NavAvatar";
-import SearchField from "../SearchField";
+import SearchField from "../formFields/SearchField";
 import IconButton from "../IconButton";
+import { useForm } from "react-hook-form";
 
 interface ILink {
   label: string;
@@ -26,6 +27,10 @@ interface IProps {
   user: IUser;
 }
 
+interface IFormState {
+  search: string;
+}
+
 const avatarSrc =
   "https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=2&w=256&h=256&q=80";
 
@@ -38,7 +43,14 @@ const Navbar: FunctionComponent<IProps> = (props) => {
   const { menuLinks, avatarLinks, user } = props;
 
   const [currentLink, setCurrentLink] = useState("Dashboard");
-  const [search, setSearch] = useState("");
+
+  const onSubmit = (data: IFormState) => console.log(data);
+
+  const { register, handleSubmit } = useForm<IFormState>({
+    defaultValues: {
+      search: "",
+    },
+  });
 
   return (
     <Disclosure as="nav" className="bg-gray-800">
@@ -71,14 +83,12 @@ const Navbar: FunctionComponent<IProps> = (props) => {
 
               {/* Right navbar */}
               <>
-                <div className="flex-1 flex justify-center px-2 lg:ml-6 lg:justify-end">
-                  <SearchField
-                    name="search"
-                    placeholder="Search"
-                    value={search}
-                    onChange={setSearch}
-                  />
-                </div>
+                <form
+                  onSubmit={handleSubmit(onSubmit)}
+                  className="flex-1 flex justify-center px-2 lg:ml-6 lg:justify-end"
+                >
+                  <SearchField {...register("search")} placeholder="Search" />
+                </form>
 
                 <div className="hidden lg:block lg:ml-4">
                   <div className="flex items-center">

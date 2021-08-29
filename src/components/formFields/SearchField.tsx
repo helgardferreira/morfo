@@ -5,11 +5,15 @@ interface IProps {
   name?: string;
   placeholder?: string;
   value?: string;
-  onChange?: (value: string) => void;
+  onChange?: React.ChangeEventHandler<HTMLInputElement>;
+  onBlur?: React.FocusEventHandler<HTMLInputElement>;
 }
 
 const SearchField = React.forwardRef<HTMLInputElement, IProps>(
-  ({ placeholder = "Search", name = "search", value, onChange }, ref) => {
+  (
+    { placeholder = "Search", name = "search", value, onChange, onBlur },
+    ref
+  ) => {
     return (
       <div className="max-w-lg w-full lg:max-w-xs">
         <label htmlFor={name} className="sr-only">
@@ -27,7 +31,8 @@ const SearchField = React.forwardRef<HTMLInputElement, IProps>(
             placeholder={placeholder}
             type="search"
             value={value}
-            onChange={(e) => onChange && onChange(e.target.value)}
+            onChange={onChange}
+            onBlur={onBlur}
           />
         </div>
       </div>
