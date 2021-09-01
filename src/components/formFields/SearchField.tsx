@@ -1,4 +1,6 @@
-import React from "react";
+import { forwardRef } from "react";
+
+// Icon Components
 import { SearchIcon } from "@heroicons/react/solid";
 
 interface IProps {
@@ -9,7 +11,7 @@ interface IProps {
   onBlur?: React.FocusEventHandler<HTMLInputElement>;
 }
 
-const SearchField = React.forwardRef<HTMLInputElement, IProps>(
+const SearchField = forwardRef<HTMLInputElement, IProps>(
   (
     { placeholder = "Search", name = "search", value, onChange, onBlur },
     ref

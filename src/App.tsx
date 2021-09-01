@@ -6,7 +6,6 @@ import {
 } from "@heroicons/react/outline";
 
 // import { Counter } from "./features/counter/Counter";
-// import Navbar from "./components/Navbar";
 import Sidebar from "./components/Sidebar";
 import { ILink } from "./types";
 
@@ -25,14 +24,6 @@ const userLinks: ILink[] = [
 function App() {
   return (
     <div>
-      {/* <Navbar
-        menuLinks={menuLinks}
-        userLinks={userLinks}
-        user={{
-          email: "tom@example.com",
-          name: "Tom Cook",
-        }}
-      /> */}
       <Sidebar menuLinks={menuLinks} userLinks={userLinks} />
       <header>{/* <Counter /> */}</header>
     </div>
