@@ -14,6 +14,7 @@ import useDarkMode from "../../hooks/useDarkMode";
 // Typings
 import { ILink } from "../../types";
 import { BellIcon, MoonIcon, SunIcon } from "@heroicons/react/outline";
+import { NavigationLeftBar } from "./NavigationLeftBar";
 
 interface IProps {
   menuLinks: ILink[];
@@ -78,28 +79,13 @@ const Sidebar: FunctionComponent<IProps> = (props) => {
                 </div>
               </Transition.Child>
 
-              {/* Logo */}
-              <Logo
-                darkSrc="https://tailwindui.com/img/logos/workflow-logo-indigo-500-mark-white-text.svg"
-                src="https://tailwindui.com/img/logos/workflow-logo-indigo-600-mark-gray-800-text.svg"
-                alt="Workflow"
-                isDark={isDarkMode}
+              {/* Left navigation bar mobile */}
+              <NavigationLeftBar
+                currentLink={currentLink}
+                isDarkMode={isDarkMode}
+                menuLinks={menuLinks}
+                onClick={setCurrentLink}
               />
-
-              {/* Mobile sidebar navigation */}
-              <SidebarNavigation>
-                {menuLinks.map((item) => (
-                  <MenuLink
-                    key={item.name}
-                    active={item.name === currentLink}
-                    small
-                    href={item.href}
-                    icon={item.icon}
-                    name={item.name}
-                    onClick={() => setCurrentLink(item.name)}
-                  />
-                ))}
-              </SidebarNavigation>
             </div>
           </Transition.Child>
 
@@ -113,26 +99,13 @@ const Sidebar: FunctionComponent<IProps> = (props) => {
         {/* Sidebar component, swap this element with another sidebar if you like */}
         <div className="w-64 border-r border-gray-200 flex flex-col bg-white">
           <div className="flex flex-1 flex-col min-h-0">
-            {/* Logo */}
-            <Logo
-              darkSrc="https://tailwindui.com/img/logos/workflow-logo-indigo-500-mark-white-text.svg"
-              src="https://tailwindui.com/img/logos/workflow-logo-indigo-600-mark-gray-800-text.svg"
-              alt="Workflow"
-              isDark={isDarkMode}
+            {/* Left navigation bar */}
+            <NavigationLeftBar
+              currentLink={currentLink}
+              isDarkMode={isDarkMode}
+              menuLinks={menuLinks}
+              onClick={setCurrentLink}
             />
-
-            <SidebarNavigation>
-              {menuLinks.map((item) => (
-                <MenuLink
-                  key={item.name}
-                  active={item.name === currentLink}
-                  href={item.href}
-                  icon={item.icon}
-                  name={item.name}
-                  onClick={() => setCurrentLink(item.name)}
-                />
-              ))}
-            </SidebarNavigation>
           </div>
         </div>
       </div>
@@ -185,7 +158,7 @@ const Sidebar: FunctionComponent<IProps> = (props) => {
   );
 };
 
-const SidebarNavigation: FunctionComponent = ({ children }) => (
+export const SidebarNavigation: FunctionComponent = ({ children }) => (
   <div className="flex flex-1 flex-col overflow-y-auto">
     <nav className="flex-1 px-2 py-4 space-y-1 dark:bg-gray-800">
       {children}
