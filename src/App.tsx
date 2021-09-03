@@ -15,6 +15,7 @@ const menuLinks: ILink[] = [
   { name: "Projects", href: "#", icon: FolderIcon },
   { name: "Calendar", href: "#", icon: CalendarIcon },
 ];
+
 const userLinks: ILink[] = [
   { name: "Your Profile", href: "#" },
   { name: "Settings", href: "#" },

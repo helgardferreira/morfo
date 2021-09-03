@@ -1,7 +1,7 @@
 import { MouseEventHandler, FunctionComponent } from "react";
 
 // Icon Components
-import { XIcon, MenuAlt2Icon, BellIcon } from "@heroicons/react/outline";
+import { XIcon, MenuAlt2Icon } from "@heroicons/react/outline";
 
 interface IButtonProps {
   onClick?: MouseEventHandler<HTMLButtonElement>;
@@ -35,9 +35,13 @@ export const SidebarOpenButton: FunctionComponent<IButtonProps> = ({
   );
 };
 
-export const NotificationButton: FunctionComponent<IButtonProps> = ({
-  onClick,
-}) => {
+interface IHeaderButtonProps extends IButtonProps {
+  icon: (props: React.ComponentProps<"svg">) => JSX.Element;
+}
+
+export const HeaderButton: FunctionComponent<IHeaderButtonProps> = (props) => {
+  const { onClick } = props;
+
   return (
     <button
       type="button"
@@ -45,7 +49,8 @@ export const NotificationButton: FunctionComponent<IButtonProps> = ({
       onClick={onClick}
     >
       <span className="sr-only">View notifications</span>
-      <BellIcon className="h-6 w-6" aria-hidden="true" />
+
+      <props.icon className="h-6 w-6" aria-hidden="true" />
     </button>
   );
 };

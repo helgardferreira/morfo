@@ -3,11 +3,7 @@ import { FunctionComponent, Fragment, useState } from "react";
 // Components
 import { Dialog, Transition } from "@headlessui/react";
 import Logo from "./Logo";
-import {
-  NotificationButton,
-  SidebarCloseButton,
-  SidebarOpenButton,
-} from "./Buttons";
+import { HeaderButton, SidebarCloseButton, SidebarOpenButton } from "./Buttons";
 import { MenuLink } from "./Links";
 import UserMenu from "./UserMenu";
 import SearchBar from "../formFields/SearchBar";
@@ -17,6 +13,7 @@ import useDarkMode from "../../hooks/useDarkMode";
 
 // Typings
 import { ILink } from "../../types";
+import { BellIcon, MoonIcon, SunIcon } from "@heroicons/react/outline";
 
 interface IProps {
   menuLinks: ILink[];
@@ -65,7 +62,7 @@ const Sidebar: FunctionComponent<IProps> = (props) => {
             leaveFrom="translate-x-0"
             leaveTo="-translate-x-full"
           >
-            <div className="relative flex-1 max-w-xs w-full flex flex-col pt-5 pb-4 bg-white">
+            <div className="relative flex-1 max-w-xs w-full flex flex-col bg-white">
               {/* Mobile sidebar close button */}
               <Transition.Child
                 as={Fragment}
@@ -83,8 +80,10 @@ const Sidebar: FunctionComponent<IProps> = (props) => {
 
               {/* Logo */}
               <Logo
+                darkSrc="https://tailwindui.com/img/logos/workflow-logo-indigo-500-mark-white-text.svg"
                 src="https://tailwindui.com/img/logos/workflow-logo-indigo-600-mark-gray-800-text.svg"
                 alt="Workflow"
+                isDark={isDarkMode}
               />
 
               {/* Mobile sidebar navigation */}
@@ -97,10 +96,7 @@ const Sidebar: FunctionComponent<IProps> = (props) => {
                     href={item.href}
                     icon={item.icon}
                     name={item.name}
-                    onClick={() => {
-                      if (item.name === currentLink) setIsDarkMode(!isDarkMode);
-                      setCurrentLink(item.name);
-                    }}
+                    onClick={() => setCurrentLink(item.name)}
                   />
                 ))}
               </SidebarNavigation>
@@ -115,28 +111,29 @@ const Sidebar: FunctionComponent<IProps> = (props) => {
       {/* Sidebar for desktop */}
       <div className="hidden md:flex md:flex-shrink-0">
         {/* Sidebar component, swap this element with another sidebar if you like */}
-        <div className="w-64 overflow-y-auto border-r border-gray-200 flex-grow flex flex-col pt-5 pb-4 bg-white">
-          {/* Logo */}
-          <Logo
-            src="https://tailwindui.com/img/logos/workflow-logo-indigo-600-mark-gray-800-text.svg"
-            alt="Workflow"
-          />
+        <div className="w-64 border-r border-gray-200 flex flex-col bg-white">
+          <div className="flex flex-1 flex-col min-h-0">
+            {/* Logo */}
+            <Logo
+              darkSrc="https://tailwindui.com/img/logos/workflow-logo-indigo-500-mark-white-text.svg"
+              src="https://tailwindui.com/img/logos/workflow-logo-indigo-600-mark-gray-800-text.svg"
+              alt="Workflow"
+              isDark={isDarkMode}
+            />
 
-          <SidebarNavigation>
-            {menuLinks.map((item) => (
-              <MenuLink
-                key={item.name}
-                active={item.name === currentLink}
-                href={item.href}
-                icon={item.icon}
-                name={item.name}
-                onClick={() => {
-                  if (item.name === currentLink) setIsDarkMode(!isDarkMode);
-                  setCurrentLink(item.name);
-                }}
-              />
-            ))}
-          </SidebarNavigation>
+            <SidebarNavigation>
+              {menuLinks.map((item) => (
+                <MenuLink
+                  key={item.name}
+                  active={item.name === currentLink}
+                  href={item.href}
+                  icon={item.icon}
+                  name={item.name}
+                  onClick={() => setCurrentLink(item.name)}
+                />
+              ))}
+            </SidebarNavigation>
+          </div>
         </div>
       </div>
 
@@ -147,8 +144,15 @@ const Sidebar: FunctionComponent<IProps> = (props) => {
             <form className="flex flex-1">
               <SearchBar name="siteSearch" placeholder="Search" />
             </form>
+
             <div className="ml-4 flex items-center md:ml-6">
-              <NotificationButton />
+              <div className="space-x-2">
+                <HeaderButton
+                  onClick={() => setIsDarkMode(!isDarkMode)}
+                  icon={isDarkMode ? SunIcon : MoonIcon}
+                />
+                <HeaderButton icon={BellIcon} />
+              </div>
 
               {/* Profile dropdown */}
               <UserMenu
@@ -182,8 +186,10 @@ const Sidebar: FunctionComponent<IProps> = (props) => {
 };
 
 const SidebarNavigation: FunctionComponent = ({ children }) => (
-  <div className="mt-5 flex-1 h-0 overflow-y-auto">
-    <nav className="px-2">{children}</nav>
+  <div className="flex flex-1 flex-col overflow-y-auto">
+    <nav className="flex-1 px-2 py-4 space-y-1 dark:bg-gray-800">
+      {children}
+    </nav>
   </div>
 );
 

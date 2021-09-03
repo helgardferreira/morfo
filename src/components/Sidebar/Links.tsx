@@ -23,10 +23,10 @@ export const MenuLink: FunctionComponent<IMenuLinkProps> = (props) => {
       href={href}
       className={classNames(
         active
-          ? "bg-gray-100 text-gray-900"
-          : "text-gray-600 hover:bg-gray-50 hover:text-gray-900",
+          ? "bg-gray-100 dark:bg-gray-900 text-gray-900 dark:text-white"
+          : "text-gray-600 dark:text-gray-300 hover:bg-gray-50 dark:hover:bg-gray-700 hover:text-gray-900 dark:hover:text-white",
         small ? "text-sm" : "text-base",
-        "group flex items-center px-2 py-2 font-medium rounded-md mt-1"
+        "group flex items-center px-2 py-2 font-medium rounded-md"
       )}
       onClick={onClick}
     >
@@ -34,8 +34,8 @@ export const MenuLink: FunctionComponent<IMenuLinkProps> = (props) => {
         <props.icon
           className={classNames(
             active
-              ? "text-gray-500"
-              : "text-gray-400 group-hover:text-gray-500",
+              ? "text-gray-500 dark:text-gray-300"
+              : "text-gray-400 dark:text-gray-400 group-hover:text-gray-500 dark:group-hover:text-gray-300",
             small ? "mr-3" : "mr-4",
             "flex-shrink-0 h-6 w-6"
           )}
