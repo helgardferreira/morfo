@@ -21,14 +21,12 @@ interface IProps {
 }
 
 const Sidebar: FunctionComponent<IProps> = (props) => {
-  const { menuLinks, userLinks } = props;
+  const { menuLinks, userLinks, children } = props;
 
   const [sidebarOpen, setSidebarOpen] = useState(false);
   const [currentLink, setCurrentLink] = useState("Dashboard");
 
   const [isDarkMode, setIsDarkMode] = useDarkMode();
-
-  console.log({ isDarkMode });
 
   return (
     <div className="h-screen flex overflow-hidden bg-gray-100">
@@ -174,9 +172,7 @@ const Sidebar: FunctionComponent<IProps> = (props) => {
             </MainContentBlock>
             <MainContentBlock>
               {/* Replace with your content */}
-              <div className="py-4">
-                <div className="border-4 border-dashed border-gray-200 rounded-lg h-96" />
-              </div>
+              {children}
             </MainContentBlock>
           </div>
         </main>

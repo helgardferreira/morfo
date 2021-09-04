@@ -7,6 +7,7 @@ import {
 
 // import { Counter } from "./features/counter/Counter";
 import Sidebar from "./components/Sidebar";
+import Table from "./components/Table";
 import { ILink } from "./types";
 
 const menuLinks: ILink[] = [
@@ -25,8 +26,11 @@ const userLinks: ILink[] = [
 function App() {
   return (
     <div>
-      <Sidebar menuLinks={menuLinks} userLinks={userLinks} />
-      <header>{/* <Counter /> */}</header>
+      <Sidebar menuLinks={menuLinks} userLinks={userLinks}>
+        <div className="py-4">
+          <Table />
+        </div>
+      </Sidebar>
     </div>
   );
 }
