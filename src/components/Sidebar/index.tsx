@@ -29,7 +29,7 @@ const Sidebar: FunctionComponent<IProps> = (props) => {
   const [isDarkMode, setIsDarkMode] = useDarkMode();
 
   return (
-    <div className="h-screen flex overflow-hidden bg-gray-100">
+    <div className="h-screen flex overflow-hidden bg-gray-100 dark:bg-gray-700">
       {/* Mobile sidebar */}
       <Transition.Root show={sidebarOpen} as={Fragment}>
         <Dialog
@@ -109,7 +109,7 @@ const Sidebar: FunctionComponent<IProps> = (props) => {
       {/* Sidebar for desktop */}
       <div className="hidden md:flex md:flex-shrink-0">
         {/* Sidebar component, swap this element with another sidebar if you like */}
-        <div className="w-64 border-r border-gray-200 flex flex-col bg-white">
+        <div className="w-64 border-r border-gray-200 dark:border-gray-900 flex flex-col bg-white">
           <div className="flex flex-1 flex-col min-h-0">
             {/* Logo */}
             <Logo
@@ -136,7 +136,7 @@ const Sidebar: FunctionComponent<IProps> = (props) => {
       </div>
 
       <div className="flex flex-col w-0 flex-1 overflow-hidden">
-        <div className="relative z-10 flex-shrink-0 flex h-16 bg-white shadow">
+        <div className="relative z-10 flex-shrink-0 flex h-16 bg-white dark:bg-gray-800 shadow">
           <SidebarOpenButton onClick={() => setSidebarOpen(true)} />
           <div className="flex-1 px-4 flex justify-between">
             <form className="flex flex-1">
@@ -166,7 +166,7 @@ const Sidebar: FunctionComponent<IProps> = (props) => {
           <div className="py-6">
             <MainContentBlock>
               {/* Page Heading */}
-              <h1 className="text-2xl font-semibold text-gray-900">
+              <h1 className="text-2xl font-semibold text-gray-900 dark:text-white">
                 Dashboard
               </h1>
             </MainContentBlock>
