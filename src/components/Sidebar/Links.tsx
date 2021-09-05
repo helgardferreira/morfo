@@ -26,7 +26,7 @@ export const MenuLink: FunctionComponent<IMenuLinkProps> = (props) => {
           ? "bg-gray-100 dark:bg-gray-900 text-gray-900 dark:text-white"
           : "text-gray-600 dark:text-gray-300 hover:bg-gray-50 dark:hover:bg-gray-700 hover:text-gray-900 dark:hover:text-white",
         small ? "text-sm" : "text-base",
-        "group flex items-center px-2 py-2 font-medium rounded-md"
+        "group flex items-center px-2 py-2 font-medium rounded-md focus:outline-none focus:ring-2 focus:ring-indigo-500"
       )}
       onClick={onClick}
     >
@@ -53,8 +53,8 @@ export const UserLink: FunctionComponent<ILink> = ({ href, name }) => (
       <a
         href={href}
         className={classNames(
-          active ? "bg-gray-100" : "",
-          "block px-4 py-2 text-sm text-gray-700"
+          active ? "bg-gray-100 dark:bg-gray-900" : "",
+          "block px-4 py-2 text-sm text-gray-700 dark:text-white"
         )}
       >
         {name}

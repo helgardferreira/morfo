@@ -19,7 +19,7 @@ const Th: FunctionComponent<IThProps> = ({ children, variant }) => (
       "px-6 py-3",
       variant === "action"
         ? "relative"
-        : "text-left text-xs font-medium text-gray-500 uppercase tracking-wider"
+        : "text-left text-xs font-bold text-gray-500 dark:text-white uppercase tracking-wider"
     )}
   >
     {children}
@@ -29,7 +29,7 @@ const Th: FunctionComponent<IThProps> = ({ children, variant }) => (
 const Td: FunctionComponent<ITdProps> = ({ children, className }) => (
   <td
     className={classNames(
-      "px-6 py-4 whitespace-nowrap text-sm text-gray-500",
+      "px-6 py-4 whitespace-nowrap text-sm text-gray-500 dark:text-white",
       className ?? ""
     )}
   >
@@ -48,9 +48,9 @@ const Table: FunctionComponent = () => {
     <div className="flex flex-col">
       <div className="overflow-x-auto">
         <div className="inline-block min-w-full">
-          <div className="overflow-hidden border border-gray-300 rounded-lg">
+          <div className="overflow-hidden border-2 border-gray-300 dark:border-gray-900 rounded-lg">
             <table className="min-w-full divide-y divide-gray-200">
-              <thead className="bg-gray-50">
+              <thead className="bg-gray-50 dark:bg-gray-900 border-b-2 border-gray-300 dark:border-gray-900">
                 <tr>
                   <Th>Name</Th>
                   <Th>Title</Th>
@@ -65,7 +65,11 @@ const Table: FunctionComponent = () => {
                 {people.map((person, personIdx) => (
                   <tr
                     key={person.email}
-                    className={personIdx % 2 === 0 ? "bg-white" : "bg-gray-50"}
+                    className={
+                      personIdx % 2 === 0
+                        ? "bg-white dark:bg-gray-800"
+                        : "bg-gray-50 dark:bg-gray-900"
+                    }
                   >
                     <Td className="font-medium text-gray-900">{person.name}</Td>
                     <Td>{person.title}</Td>
@@ -74,7 +78,7 @@ const Table: FunctionComponent = () => {
                     <Td className="text-right font-medium">
                       <a
                         href="#"
-                        className="text-indigo-600 hover:text-indigo-900"
+                        className="text-indigo-600 dark:text-indigo-400 hover:text-indigo-900 dark:hover:text-indigo-300"
                       >
                         Edit
                       </a>

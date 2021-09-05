@@ -26,7 +26,7 @@ export const SidebarOpenButton: FunctionComponent<IButtonProps> = ({
   return (
     <button
       type="button"
-      className="px-4 border-r border-gray-200 text-gray-500 focus:outline-none focus:ring-2 focus:ring-inset focus:ring-indigo-500 md:hidden"
+      className="px-4 border-r border-gray-200 dark:border-gray-900 text-gray-500 focus:outline-none focus:ring-2 focus:ring-inset focus:ring-indigo-500 md:hidden"
       onClick={onClick}
     >
       <span className="sr-only">Open sidebar</span>
@@ -45,7 +45,7 @@ export const HeaderButton: FunctionComponent<IHeaderButtonProps> = (props) => {
   return (
     <button
       type="button"
-      className="bg-white p-1 rounded-full text-gray-400 hover:text-gray-500 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
+      className="bg-white dark:bg-gray-800 p-1 rounded-full text-gray-400 dark:text-gray-300 hover:text-gray-500 dark:hover:text-white focus:outline-none focus:ring-2 focus:ring-offset-2 dark:ring-offset-gray-800 focus:ring-indigo-500"
       onClick={onClick}
     >
       <span className="sr-only">View notifications</span>
