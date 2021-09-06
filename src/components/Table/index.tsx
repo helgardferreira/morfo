@@ -1,6 +1,9 @@
 import { FunctionComponent, useEffect, useState } from "react";
+import { useDrag, useDrop } from "react-dnd";
+import { useAppDispatch, useAppSelector } from "../../app/hooks";
 import { classNames } from "../../utils/classNames";
 import generatePeople, { Person } from "../../utils/generatePeople";
+import { moveHeader, selectHeadings } from "./tableSlice";
 
 interface IExtensibleProps {
   className?: string;
@@ -10,21 +13,50 @@ interface ITdProps extends IExtensibleProps {}
 
 interface IThProps extends IExtensibleProps {
   variant?: "action";
+  id?: string;
 }
 
-const Th: FunctionComponent<IThProps> = ({ children, variant }) => (
-  <th
-    scope="col"
-    className={classNames(
-      "px-6 py-3",
-      variant === "action"
-        ? "relative"
-        : "text-left text-xs font-bold text-gray-500 dark:text-white uppercase tracking-wider"
-    )}
-  >
-    {children}
-  </th>
-);
+const Th: FunctionComponent<IThProps> = ({ children, variant, id }) => {
+  const dispatch = useAppDispatch();
+
+  const [, drag] = useDrag({
+    type: "tableHeader",
+    item: {
+      id,
+    },
+    canDrag: () => !!id,
+  });
+
+  const [, drop] = useDrop({
+    accept: "tableHeader",
+    drop: (item: { id: string }) => {
+      dispatch(
+        moveHeader({
+          // What heading we are grabbing
+          currentId: item.id,
+          // Where we are dropping the heading
+          targetId: id!,
+        })
+      );
+    },
+    canDrop: () => !!id,
+  });
+
+  return (
+    <th
+      ref={drag}
+      scope="col"
+      className={classNames(
+        "px-6 py-3",
+        variant === "action"
+          ? "relative"
+          : "text-left text-xs font-bold text-gray-500 dark:text-white uppercase tracking-wider"
+      )}
+    >
+      <div ref={drop}>{children}</div>
+    </th>
+  );
+};
 
 const Td: FunctionComponent<ITdProps> = ({ children, className }) => (
   <td
@@ -44,6 +76,8 @@ const Table: FunctionComponent = () => {
     setPeople(generatePeople(20));
   }, []);
 
+  const headings = useAppSelector(selectHeadings);
+
   return (
     <div className="flex flex-col">
       <div className="overflow-x-auto">
@@ -52,10 +86,11 @@ const Table: FunctionComponent = () => {
             <table className="min-w-full divide-y divide-gray-200">
               <thead className="bg-gray-50 dark:bg-gray-900 border-b-2 border-gray-300 dark:border-gray-900">
                 <tr>
-                  <Th>Name</Th>
-                  <Th>Title</Th>
-                  <Th>Email</Th>
-                  <Th>City</Th>
+                  {headings.map((heading) => (
+                    <Th key={heading.id} id={heading.id}>
+                      {heading.text}
+                    </Th>
+                  ))}
                   <Th variant="action">
                     <span className="sr-only">Edit</span>
                   </Th>
@@ -71,10 +106,10 @@ const Table: FunctionComponent = () => {
                         : "bg-gray-50 dark:bg-gray-900"
                     }
                   >
-                    <Td className="font-medium text-gray-900">{person.name}</Td>
-                    <Td>{person.title}</Td>
-                    <Td>{person.email}</Td>
-                    <Td>{person.city}</Td>
+                    {/* <Td className="font-medium text-gray-900">{person.name}</Td> */}
+                    {headings.map((heading) => (
+                      <Td key={heading.id}>{person[heading.id]}</Td>
+                    ))}
                     <Td className="text-right font-medium">
                       <a
                         href="#"
